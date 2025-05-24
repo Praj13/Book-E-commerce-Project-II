@@ -33,10 +33,13 @@ if(isset($_POST['add_to_cart'])){
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>home</title>
+   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+   <title>Home</title>
 
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -108,11 +111,11 @@ Step into a world of wonder at <strong>BookHeaven</strong>. Dive into a world of
       </div>
 
       <div class="content">
-         <h3>about us</h3>
+         <h3>About us</h3>
          <p>
 Welcome to <strong>BookHeaven!</strong> We're your one-stop destination for a wide range of books, Dive into a world of captivating stories, bilingual treasures, and enchanting encyclopedias. Discover books that spark imagination, inspire learning, and create endless adventures. Start your journey with us today!
 </p>
-         <a href="about.php" class="btn">read more</a>
+         <a href="about.php" class="btn">Read more</a>
       </div>
 
    </div>
@@ -122,7 +125,7 @@ Welcome to <strong>BookHeaven!</strong> We're your one-stop destination for a wi
 <section class="home-contact">
 
    <div class="content">
-      <h3>have any questions?</h3>
+      <h3>Any questions?</h3>
       <p>Have any questions or need assistance? Feel free to reach out to us! We're here to help and eager to hear from you. Whether it's a query about our products, an inquiry about your order, or simply to say hello, we're just a message away. Your satisfaction is our priority, and we're committed to providing you with the best possible experience. Get in touch with us today, and let's make your experience with <strong>BookHeaven</strong> a memorable one!</p>
       <a href="contact.php" class="white-btn">Contact Us</a>
    </div>

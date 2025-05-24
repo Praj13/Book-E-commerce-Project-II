@@ -53,48 +53,111 @@ if (isset($_POST['add_to_cart'])) {
     <title><?php echo $name; ?> - Product Details</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-    .product-details {
-        display: flex;
-        gap: 30px;
-        justify-content: center;
-        padding: 20px 10px; /* Reduced */
-    }
+.product-details {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 30px 20px;
+    margin: 30px auto;
+    max-width: 1000px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    flex-wrap: wrap; /* Enable wrapping on small screens */
+}
 
-    .product-details img {
-        width: 300px;
-        height: auto;
-        object-fit: cover;
-        border-radius: 8px;
+.product-image {
+    flex: 1 1 300px;
+    display: flex;
+    justify-content: center;
+}
+
+.product-image img {
+    max-width: 100%;
+    width: 260px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-info {
+    flex: 1 1 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.product-info h2 {
+    font-size: 1.6rem;
+    color: #333;
+}
+
+.product-info .price {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #28a745;
+}
+
+.product-info p {
+    font-size: 0.95rem;
+    color: #555;
+    margin: 3px 0;
+}
+
+.product-info strong {
+    color: #000;
+}
+
+.action {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.qty {
+    width: 60px;
+    padding: 6px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.btn {
+    background: #007bff;
+    padding: 8px 16px;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn:hover {
+    background: #0056b3;
+}
+
+/* ✅ Responsive layout for tablets and smaller screens */
+@media (max-width: 768px) {
+    .product-details {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 10px;
     }
 
     .product-info {
-        max-width: 500px;
+        align-items: center;
+        text-align: center;
     }
 
-    .product-info h2 {
-        font-size: 2rem;
-        margin-bottom: 6px; /* Reduced */
+    .action {
+        justify-content: center;
     }
+}
 
-    .product-info .price {
-        color: #28a745;
-        font-size: 1.5rem;
-        margin: 6px 0; /* Reduced */
-    }
-
-    .product-info .btn {
-        margin-top: 10px; /* Slightly reduced */
-        padding: 10px 20px;
-        background-color: #007bff;
-        border: none;
-        color: white;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    .product-info .btn:hover {
-        background-color: #0056b3;
-    }
 
     .recommendations {
         padding: 20px 10px; /* Reduced */
@@ -163,26 +226,26 @@ if (isset($_POST['add_to_cart'])) {
     <h3>Book Details</h3>
     <p><a href="home.php">Home</a> / View Product</p>
 </div>
+<section class="product-details">
+    <div class="product-image">
+        <img src="uploaded_img/<?php echo $image; ?>" alt="<?php echo $name; ?>">
+    </div>
+    <div class="product-info">
+        <h2><?php echo $name; ?></h2>
+        <p class="price">Rs <?php echo $price; ?> /-</p>
+        <p><strong>Author:</strong> <?php echo $author; ?></p>
+        <p><strong>Genre:</strong> <?php echo $genre; ?></p>
+        <p><strong>Tags:</strong> <?php echo implode(', ', $tags); ?></p>
 
-<<section class="product-details">
-    <div class="product-card">
-        <div class="product-image">
-            <img src="uploaded_img/<?php echo $image; ?>" alt="<?php echo $name; ?>">
-        </div>
-        <div class="product-info">
-            <h2><?php echo $name; ?></h2>
-            <p class="price">Rs <?php echo $price; ?> /-</p>
-            <p><strong>Author:</strong> <?php echo $author; ?></p>
-            <p><strong>Genre:</strong> <?php echo $genre; ?></p>
-            <p><strong>Tags:</strong> <?php echo implode(', ', $tags); ?></p>
-            
+        <form method="post" style="margin-top: 10px;">
             <div class="action">
-                <input type="number" min="1" value="1" class="qty">
-                <button class="btn">Add to Cart</button>
+                <input type="number" name="product_quantity" min="1" value="1" class="qty">
+                <button type="submit" name="add_to_cart" class="btn">Add to Cart</button>
             </div>
-        </div>
+        </form>
     </div>
 </section>
+
 
 <section class="recommendations">
     <h2>Recommended Books</h2>

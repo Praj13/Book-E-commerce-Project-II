@@ -43,6 +43,88 @@ if(isset($_POST['add_to_cart'])){
 
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
+   <style>
+      .suggestions-box {
+    display: none;
+    position: absolute;
+    background: #fff;
+    border: 1px solid #ddd;
+    width: calc(100% - 2px);
+    max-height:400px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.suggestion-item {
+    padding: 8px 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.suggestion-item:hover {
+    background-color:rgb(186, 181, 181);
+}
+   </style>
+   <script>
+      document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    const suggestionsBox = document.getElementById('suggestionsBox');
+    let debounceTimer;
+
+    // Show suggestions when typing
+    searchInput.addEventListener('input', function() {
+        const term = this.value.trim();
+
+        // Clear previous debounce timer
+        clearTimeout(debounceTimer);
+
+        // Only fetch if term is at least 2 characters
+        if (term.length < 2) {
+            suggestionsBox.style.display = 'none';
+            return;
+        }
+
+        // Debounce to avoid too many requests (300ms delay)
+        debounceTimer = setTimeout(() => {
+            fetchSuggestions(term);
+        }, 300);
+    });
+
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+        if (e.target !== searchInput) {
+            suggestionsBox.style.display = 'none';
+        }
+    });
+
+    // Fetch suggestions from PHP endpoint
+    function fetchSuggestions(term) {
+        fetch(`search_suggestions.php?term=${encodeURIComponent(term)}`)
+            .then(response => response.json())
+            .then(suggestions => {
+                if (suggestions.length > 0) {
+                    suggestionsBox.innerHTML = suggestions
+                        .map(suggestion => `<div class="suggestion-item">${suggestion}</div>`)
+                        .join('');
+                    suggestionsBox.style.display = 'block';
+                } else {
+                    suggestionsBox.style.display = 'none';
+                }
+            })
+            .catch(error => console.error('Error fetching suggestions:', error));
+    }
+
+    // Handle suggestion selection
+    suggestionsBox.addEventListener('click', function(e) {
+        if (e.target.classList.contains('suggestion-item')) {
+            searchInput.value = e.target.textContent;
+            suggestionsBox.style.display = 'none';
+            searchInput.focus();
+        }
+    });
+});
+   </script>
 
 </head>
 <body>
@@ -55,10 +137,16 @@ if(isset($_POST['add_to_cart'])){
 </div>
 
 <section class="search-form">
-   <form action="" method="post">
+   <!-- <form action="" method="post">
       <input type="text" name="search" placeholder="search products..." class="box">
       <input type="submit" name="submit" value="search" class="btn">
-   </form>
+   </form> -->
+   <!-- Inside your search form -->
+<form action="" method="post">
+  <input type="text" name="search" id="searchInput" placeholder="Search products..." class="box" autocomplete="off">
+  <div id="suggestionsBox" class="suggestions-box"></div>
+  <input type="submit" name="submit" value="Search" class="btn">
+</form>
 </section>
 
 <section class="products" style="padding-top: 0;">

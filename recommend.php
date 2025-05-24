@@ -48,6 +48,7 @@ if (mysqli_num_rows($last_view_query) == 0) {
         }
     }
 
+    // Sort by highest score
     usort($recommended, fn($a, $b) => $b['score'] - $a['score']);
 }
 ?>
@@ -83,7 +84,7 @@ if (mysqli_num_rows($last_view_query) == 0) {
     .box-container {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-around;
+        justify-content: center; /* Center the boxes */
         gap: 20px;
     }
 
@@ -95,6 +96,10 @@ if (mysqli_num_rows($last_view_query) == 0) {
         width: 300px;
         text-align: center;
         transition: transform 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 15px;
     }
 
     .box:hover {
@@ -103,7 +108,7 @@ if (mysqli_num_rows($last_view_query) == 0) {
 
     .box img {
         width: 100%;
-        height: auto;
+        height: 200px;
         object-fit: cover;
         border-bottom: 2px solid #eee;
     }
@@ -122,6 +127,7 @@ if (mysqli_num_rows($last_view_query) == 0) {
     }
 
     .box .btn {
+        margin-top: auto;
         background-color: #007bff;
         color: white;
         border: none;
